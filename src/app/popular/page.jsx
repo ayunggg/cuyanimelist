@@ -4,17 +4,18 @@ import CardAnime from "@/components/CardAnime"
 import HeaderMenu from "@/components/utilities/HeaderMenu"
 import Pagination from "@/components/utilities/Pagination"
 import { useEffect, useState } from "react"
+import { ApiServices } from "../../service/api-services"
 
 const Page = async () => {
   const [page, setPage] = useState(1)
   const [topAnime, setTopAnime] = useState()
 
   const fetchData = async () => {
-    const responseTopAnime = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?page=${page}&filter=bypopularity`
+    const response = await ApiServices(
+      "top/anime",
+      `page=${page}&filter=bypopularity`
     )
-    const data = await responseTopAnime.json()
-    setTopAnime(data)
+    setTopAnime(response)
   }
 
   useEffect(() => {

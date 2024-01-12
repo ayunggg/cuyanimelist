@@ -1,18 +1,19 @@
+import { ApiServices } from "@/service/api-services"
 import CardAnime from "@/components/CardAnime"
 import Header from "@/components/CardAnime/Header"
 
 const Page = async ({ params }) => {
   console.log(params)
   const { keyword } = params
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/anime?q=${keyword}`
-  )
-  const searchAnime = await res.json()
+  const decodeKeyword = decodeURI(keyword)
+
+  const response = await ApiServices("anime", `q=${decodeKeyword}`)
+
   return (
     <>
-      <section id={keyword.title}>
-        <Header title={`Search for ${keyword}`} />
-        <CardAnime dataApi={searchAnime} />
+      <section id={decodeKeyword.title}>
+        <Header title={`Search for ${decodeKeyword}`} />
+        <CardAnime dataApi={response} />
       </section>
     </>
   )

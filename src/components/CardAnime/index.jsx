@@ -2,11 +2,11 @@ import Image from "next/image"
 import Link from "next/link"
 const CardAnime = ({ dataApi }) => {
   return (
-    <div className="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-6 px-6  mb-10">
+    <div className="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-6 mb-10">
       {dataApi?.data.map((data) => {
         return (
           <Link
-            href={`/${data.mal_id}`}
+            href={`/detail/${data.mal_id}`}
             className="cursor-pointer shadow-lg rounded-md card-anime bg-color-light"
             key={data.mal_id}
           >

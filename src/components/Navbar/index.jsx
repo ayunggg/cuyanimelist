@@ -1,5 +1,6 @@
 import Link from "next/link"
 import InputSearch from "./InputSearch"
+import UserActionButton from "./UserActionButton"
 
 const Navbar = () => {
   return (
@@ -11,7 +12,10 @@ const Navbar = () => {
         >
           CUYANIMELIST.
         </Link>
-        <InputSearch />
+        <div className="flex flex-col md:flex-row md:gap-10  md:items-center sm:items-start gap-3">
+          <InputSearch />
+          <UserActionButton />
+        </div>
       </div>
     </header>
   )

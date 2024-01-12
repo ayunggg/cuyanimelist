@@ -1,17 +1,41 @@
 import CardAnime from "@/components/CardAnime"
 import Header from "@/components/CardAnime/Header"
+import {
+  ApiServices,
+  NestedApiServices,
+  reproduceData,
+} from "../service/api-services"
 
 const Home = async () => {
-  const responseTopAnime = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/top/anime?limit=10&filter=bypopularity`
+  const response = await ApiServices(
+    "top/anime",
+    "limit=10&filter=bypopularity"
   )
-  const resultTopAnime = await responseTopAnime.json()
+
+  let recomendedAnime = await NestedApiServices(
+    "recommendations/anime",
+    "entry"
+  )
+
+  recomendedAnime = reproduceData(recomendedAnime, 5)
 
   return (
     <>
       <section>
-        <Header title={"Popular Anime"} link={"/popular"} />
-        <CardAnime dataApi={resultTopAnime} />
+        <div className="px-6 py-4">
+          <Header title={"Popular Anime"} link={"/popular"} />
+        </div>
+        <div className="px-6 ">
+          <CardAnime dataApi={response} />
+        </div>
+      </section>
+      <section>
+        <div className="px-6">
+          <Header title={"Rocemmended Anime"} />
+        </div>
+        <div className="px-6 py-6">
+          <CardAnime dataApi={recomendedAnime} />
+        </div>
       </section>
     </>
   )
